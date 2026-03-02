@@ -1,0 +1,186 @@
+{
+  "name": "Form",
+  "nodes": [
+    {
+      "parameters": {
+        "formTitle": "Consultant Form",
+        "formDescription": "Please fill the form to get the details about the services that we offer.",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "Name",
+              "placeholder": "Your Name"
+            },
+            {
+              "fieldLabel": "Service",
+              "fieldType": "dropdown",
+              "fieldOptions": {
+                "values": [
+                  {
+                    "option": "Consultation"
+                  },
+                  {
+                    "option": "Training"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "options": {
+          "appendAttribution": true
+        }
+      },
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2.5,
+      "position": [
+        0,
+        0
+      ],
+      "id": "63c24d0e-1eee-4a9c-a27d-940348ac4797",
+      "name": "On form submission",
+      "webhookId": "c8b4e2cf-7aea-4d80-8e07-f5ac638a1919",
+      "notes": "My First Form"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1S43gP8BjRguk4xv8KFJjrhhCaZP-rvIVailJB8sX6aU",
+          "mode": "list",
+          "cachedResultName": "Details",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1S43gP8BjRguk4xv8KFJjrhhCaZP-rvIVailJB8sX6aU/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1S43gP8BjRguk4xv8KFJjrhhCaZP-rvIVailJB8sX6aU/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Name": "={{ $json.Name }}",
+            "Service": "={{ $json.Service }}",
+            "Enquiry Time": "={{ $json.submittedAt }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Name",
+              "displayName": "Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Service",
+              "displayName": "Service",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Enquiry Time",
+              "displayName": "Enquiry Time",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        208,
+        0
+      ],
+      "id": "a7ea2796-a5f5-4b73-a237-ac98e86a47c5",
+      "name": "Append row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "UkrUlONs3uhJVFPv",
+          "name": "Google Sheets account"
+        }
+      },
+      "notes": "My first sheet"
+    },
+    {
+      "parameters": {
+        "sendTo": "ashwinipanicker115@gmail.com",
+        "subject": "Thank you for Signing Up Ash",
+        "emailType": "text",
+        "message": "=Hello,thanks for filling up the details. Our team will contact you soon enough.\nDetails:\nName:{{ $json.Name }}\nService:{{ $json.Service }}\nEnquiry Time:{{ $json['Enquiry Time'] }}\nSource: {{ $workflow.id }}",
+        "options": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        416,
+        0
+      ],
+      "id": "4e71373b-8319-4517-bbb2-cc4e699f8b4e",
+      "name": "Send a message",
+      "webhookId": "9fa38b18-37a1-4943-9499-a771e5d8616b",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "KCW6nxwQ1kXb4pQV",
+          "name": "Gmail account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "On form submission": {
+      "main": [
+        [
+          {
+            "node": "Append row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Append row in sheet": {
+      "main": [
+        [
+          {
+            "node": "Send a message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "0f1aaa2d-c9dd-4998-a9d9-7423c306c5a2",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "1134db104a6cb7fbc0b48f64dd6b3432739a85ef1f2cc7024edbfe63f1eb64ab"
+  },
+  "id": "b8pyAD5Fmil1JaKJ",
+  "tags": []
+}
