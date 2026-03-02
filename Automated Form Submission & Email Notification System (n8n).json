@@ -120,7 +120,7 @@
     },
     {
       "parameters": {
-        "sendTo": "ashwinipanicker115@gmail.com",
+        "sendTo": "abc@gmail.com",
         "subject": "Thank you for Signing Up Ash",
         "emailType": "text",
         "message": "=Hello,thanks for filling up the details. Our team will contact you soon enough.\nDetails:\nName:{{ $json.Name }}\nService:{{ $json.Service }}\nEnquiry Time:{{ $json['Enquiry Time'] }}\nSource: {{ $workflow.id }}",
